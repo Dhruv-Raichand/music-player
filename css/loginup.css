@@ -1,0 +1,92 @@
+:root {
+    --a: 0;
+    --body: #333333; /* Dark background for body */
+    --container: #1c1c1c; /* Dark container background */
+    --card: #2c3e50; /* Dark card background */
+    --text: white; /* Text color for dark theme */
+    --header: #000000; /* Header background color */
+    --invert: invert(1);
+}
+
+.light-theme {
+    --body: #f6f6f6; /* Light background for body */
+    --container: #f0f0f0; /* Light container background */
+    --text: #333333; /* Text color for light theme */
+    --header: #d7d7d7; /* Header background color */
+    --card: #cccbcb; /* Card background color */
+    --invert: invert(0);
+}
+
+#theme-toggle{
+    all: unset;
+}
+
+#dark-icon{
+    filter: var(--invert);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--body); /* Use CSS variable for background */
+    color: var(--text); /* Use CSS variable for text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: var(--container); /* Use CSS variable for container background */
+    padding: 20px 20px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 94%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Button background color */
+    color: var(--text); /* Use CSS variable for button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker button on hover */
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
