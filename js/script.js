@@ -37,21 +37,38 @@ async function getSongs(folder) {
 
 
     // Show all the songs in the playlist
-    let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
-    songUL.innerHTML = ""
+    let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+    songUL.innerHTML = "";
+    
     for (const song of songs) {
-        const displayName = song.replaceAll("%20", " ").replaceAll(".mp3", " ")
-        songUL.innerHTML = songUL.innerHTML + `<li class="li">
+        const displayName = song.replaceAll("%20", " ").replaceAll(".mp3", " ");
+    
+        // Add static credit based on filename match (manual but minimal)
+        let credit = "";
+        if (displayName.toLowerCase().includes("cradles")) {
+            credit = `Song: Sub Urban - Cradles [NCS Release]<br>
+                      Music provided by NoCopyrightSounds<br>
+                      <a class="links" href="http://ncs.io/Cradles" target="_blank">Download</a> |
+                      <a class="links" href="https://youtu.be/Hn4sfC2PbhI" target="_blank">Watch</a>`;
+        } else if (displayName.toLowerCase().includes("mortals")) {
+            credit = `Song: Warriyo - Mortals (feat. Laura Brehm) [NCS Release]<br>
+                      Music provided by NoCopyrightSounds<br>
+                      <a class="links" href="http://ncs.io/Mortals" target="_blank">Download</a> |
+                      <a class="links" href="https://youtu.be/yJg-Y5byMMw" target="_blank">Watch</a>`;
+        }
+    
+        songUL.innerHTML += `<li class="li">
         <img class="songimg" width="44" src="${folder}/cover.jpg" alt="">
-                            <div class="info">
-                                <div> ${displayName}</div>
-                            </div>
-                            <div class="playnow">
-                                <span>Play Now</span>
-                                <img class="invert" src="img/play.svg" alt="">
-                            </div> </li>`;
+        <div class="info">
+                <div>${displayName}</div>
+            </div>
+            <div class="playnow">
+                <img class="invert" src="img/play.svg" alt="">
+            </div>
+        </li><div><div class="credit" style="font-size: 12px; margin-top: 5px;">${credit}</div></div>
+        `;
     }
-
+    
     // Attach an event listener to each song
     Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach((e, index) => {
         e.addEventListener("click", () => {
@@ -91,6 +108,7 @@ async function displayAlbums() {
             let folder = e.href.split("/").slice(-2)[0]
             // Get the metadata of the folder
             let a = await fetch(`/songs/${folder}/info.json`)
+    
             let response = await a.json(); 
              // Store album data for searching
              albums.push({ folder, title: response.title, description: response.description });
@@ -107,6 +125,7 @@ async function displayAlbums() {
             <img src="/songs/${folder}/cover.jpg" alt="">
             <h2>${response.title}</h2>
             <p>${response.description}</p>
+
         </div>`
         }
     }
@@ -336,5 +355,3 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Initial setup: Start playing the first song
-playMusic(songs[currentIndex]);

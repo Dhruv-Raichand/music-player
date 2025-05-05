@@ -7,7 +7,7 @@
   --body: #333333;
   --container: #1c1c1c;
   --card: #2c3e50;
-  --text: white;
+  --text: rgb(255, 239, 239);
   --header: #000000;
   --invert: invert(1);
   --ulta: invert(0);
@@ -39,11 +39,11 @@ a {
 }
 
 .light-theme {
-  --body: #f6f6f6;
-  --container: #f0f0f0;
+  --body: #fff2f2;
+  --container: #ffdddd;
   --text: #333333;
-  --header: #d7d7d7;
-  --card: #cccbcb;
+  --header: #ff8888;
+  --card: rgb(255, 114, 110);
   --invert: invert(0);
   --ulta: invert(1);
 }
@@ -176,10 +176,10 @@ h1 > img {
 .cardContainer {
   margin: 30px;
   margin-bottom: 50px;
-  padding: 5px;
+  padding: 10px;
   padding-bottom: 30px;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
   overflow-y: auto;
   max-height: 60vh;
@@ -211,7 +211,7 @@ h1 > img {
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  background: conic-gradient(from var(--direction), transparent 20%, orange);
+  background: conic-gradient(from var(--direction), transparent 20%, red);
   z-index: -1;
   padding: 2px;
   border-radius: 8px;
@@ -220,7 +220,7 @@ h1 > img {
 
 .card::before {
   filter: blur(0.5rem);
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 @keyframes rotate {
@@ -269,7 +269,7 @@ h1 > img {
 
 .signupbtn {
   background-color: var(--header);
-  color: rgb(156, 148, 148);
+  color: #efefef;
   font-weight: bold;
   border: none;
   outline: none;
@@ -378,6 +378,23 @@ h1 > img {
   border-radius: 5px;
 }
 
+.credit{
+  font-size: 11px;
+  margin-top: 4px;
+  color: #686868;
+  line-height: 1.3;
+}
+
+.links{
+font-weight: bold;
+}
+
+
+.links:hover{
+  color: rgb(60, 60, 254);
+  text-decoration: underline;
+}
+
 .songList .info {
   font-size: 13px;
   width: 344px;
@@ -453,11 +470,42 @@ h1 > img {
   filter: var(--ulta);
 }
 .volumer {
-  filter: invert(1);
+  /* filter: invert(1); */
 }
 .range input {
   cursor: pointer;
 }
+
+.volumer {
+  -webkit-appearance: none; /*Remove default styling*/
+  width: 100%;
+  height: 8px;
+  background: #006aff; /* Background color (orange) */
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.volumer::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 17px;
+  height: 10px;
+  background: #00aeff; /* Thumb color (orange) */
+  cursor: pointer;
+  border-radius: 30%;
+}
+
+.volumer::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ff0000; /* Thumb color (orange) */
+  cursor: pointer;
+  border-radius: 50%;
+}
+
 
 .abovebar {
   display: flex;
