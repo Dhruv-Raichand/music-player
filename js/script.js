@@ -107,6 +107,7 @@ async function displayAlbums() {
             <img src="/songs/${folder}/cover.jpg" alt="">
             <h2>${response.title}</h2>
             <p>${response.description}</p>
+            <p>${response.link}</p>
         </div>`
         }
     }
