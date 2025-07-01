@@ -1,3 +1,4 @@
+
 console.log('Lets write JavaScript');
 let currentSong = new Audio();
 let songs;
@@ -101,33 +102,36 @@ async function displayAlbums() {
     let anchors = div.getElementsByTagName("a")
     let cardContainer = document.querySelector(".cardContainer")
     let array = Array.from(anchors)
-    let albums = [];
+    console.log(array)
+    let albums = [{folder: 'Angry_(mood)', title: 'Angry Mood', description: 'Calm your Anger'}, {folder: 'Bright_(mood)', title: 'Bright Songs', description: 'Bright Songs for you'},{folder: 'Chill_(mood)', title: 'Just Chill', description: 'Yes, Just Chill'}, {folder: 'Funky_(mood)', title: 'Go Funky', description: 'Lets go Funky'}, {folder: 'Love_(mood)', title: 'I Love You', description: 'Love is in the air'}, {folder: 'ncs', title: 'NCS Songs', description: 'Songs for you'},{folder: 'Uplifting_(mood)', title: 'Get up', description: 'You can do it!'}]
+    // let albums = [];
     for (let index = 0; index < array.length; index++) {
         const e = array[index]; 
         if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[0]
             // Get the metadata of the folder
             let a = await fetch(`/songs/${folder}/info.json`)
-    
+            
             let response = await a.json(); 
-             // Store album data for searching
-             albums.push({ folder, title: response.title, description: response.description });
- 
+            // Store album data for searching
+            albums.push({ folder, title: response.title, description: response.description });
+            
             cardContainer.innerHTML = cardContainer.innerHTML + ` <div data-folder="${folder}" class="card">
             <div class="play">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5"
-                        stroke-linejoin="round" />
-                </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5"
+            stroke-linejoin="round" />
+            </svg>
             </div>
-
+            
             <img src="/songs/${folder}/cover.jpg" alt="">
             <h2>${response.title}</h2>
             <p>${response.description}</p>
-        </div>`
+            </div>`
         }
     }
+    console.log(albums)
 
     // Load the playlist whenever card is clicked
     Array.from(document.getElementsByClassName("card")).forEach(e => { 
@@ -353,4 +357,3 @@ document.addEventListener("keydown", (event) => {
             break;
     }
 });
-
