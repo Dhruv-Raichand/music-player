@@ -24,7 +24,16 @@ async function getSongs(folder) {
     try {
         // Fetch the songs list from songinfo.json
         let response = await fetch(`/${folder}/songinfo.json`);
-        if (!response.ok) throw new Error(`Failed to load songs from ${folder}`);
+        if (!response.ok) {
+            console.warn(`No songinfo.json found for ${folder}`);
+            // Show message that this playlist is empty
+            let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+            songUL.innerHTML = `<li style="padding: 20px; text-align: center; color: #888;">
+                This playlist doesn't have songs yet.<br>
+                Add a songinfo.json file to this folder.
+            </li>`;
+            return [];
+        }
         
         let songsData = await response.json();
         songs = songsData.map(song => song.file); // Extract just the filenames
@@ -39,7 +48,7 @@ async function getSongs(folder) {
             // Build credit section with links
             let credit = "";
             if (songData.credit) {
-                credit = `${songData.credit}<br>Music provided by NoCopyrightSounds<br>`;
+                credit = `${songData.credit}<br>`;
                 if (songData.download) {
                     credit += `<a class="links" href="${songData.download}" target="_blank">Download</a>`;
                 }
@@ -71,17 +80,27 @@ async function getSongs(folder) {
         return songs;
     } catch (error) {
         console.error('Error loading songs:', error);
+        let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+        songUL.innerHTML = `<li style="padding: 20px; text-align: center; color: #888;">
+            Error loading songs. Check console for details.
+        </li>`;
         return [];
     }
 }
 
 const playMusic = (track, pause = false) => {
-    currentSong.src = `/${currFolder}/` + track;
+    // URL encode the track name to handle spaces
+    const encodedTrack = encodeURIComponent(track);
+    currentSong.src = `/${currFolder}/${encodedTrack}`;
+    
+    console.log('Attempting to play:', currentSong.src);
     
     // Add error handling for audio loading
     currentSong.onerror = () => {
         console.error(`Failed to load: ${currentSong.src}`);
-        alert(`Cannot load song: ${track}\nPlease check if the file exists on the server.`);
+        console.error(`Original track name: ${track}`);
+        console.error(`Current folder: ${currFolder}`);
+        alert(`Cannot load song: ${track}\n\nPlease check:\n1. File exists in /${currFolder}/\n2. Filename matches exactly (including spaces)\n3. File is pushed to Git`);
     };
     
     if (!pause) {
