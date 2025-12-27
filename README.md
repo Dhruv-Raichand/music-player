@@ -1,4 +1,8 @@
 # 🎵 MUZIX - Music Player
+![GitHub stars](https://img.shields.io/github/stars/Dhruv-Raichand/music-player?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Dhruv-Raichand/music-player?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Dhruv-Raichand/music-player)
+![GitHub last commit](https://img.shields.io/github/last-commit/Dhruv-Raichand/music-player)
 
 A modern, fully-featured web-based music player with mood-based playlists, search functionality, and a beautiful dark/light theme interface. Built with vanilla JavaScript, HTML5, and CSS3.
 
@@ -79,7 +83,7 @@ music-player/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/music-player.git
+   git clone https://github.com/Dhruv-Raichand/music-player.git
    cd music-player
    ```
 
@@ -262,11 +266,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**GitHub**: [@Dhruv-Raichand](https://github.com/yourusername)  
+**GitHub**: [@Dhruv-Raichand](https://github.com/Dhruv-Raichand)  
 **Email**: dhruvraichand70@example.com  
 **LinkedIn**: [Dhruv Raichand](https://www.linkedin.com/in/dhruv-raichand-560a67273)
 
-**Project Link**: [https://github.com/yourusername/music-player](https://github.com/yourusername/music-player)  
+**Project Link**: [https://github.com/Dhruv-Raichand/music-player](https://github.com/Dhruv-Raichand/music-player)  
 **Live Demo**: [https://music-player-six-taupe.vercel.app](https://music-player-six-taupe.vercel.app)
 
 ---
