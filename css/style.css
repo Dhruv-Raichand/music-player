@@ -25,6 +25,27 @@ a {
   box-sizing: border-box;
 }
 
+/* Utility Classes */
+.flex {
+  display: flex;
+}
+
+.bg-grey {
+  background-color: var(--container);
+}
+
+.rounded {
+  border-radius: 12px;
+}
+
+.m-1 {
+  margin: 10px;
+}
+
+.p-1 {
+  padding: 16px;
+}
+
 .ulta {
   filter: var(--ulta);
 }
@@ -113,6 +134,12 @@ body {
   overflow-x: hidden;
 }
 
+.container {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
 .songimg {
   border-radius: 8px;
   object-fit: cover;
@@ -120,15 +147,37 @@ body {
 
 .left {
   width: 25vw;
-  padding: 10px;
-  background-color: var(--container);
+  padding: 0;
+  background-color: transparent;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home {
+  background-color: var(--container);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.library {
+  background-color: var(--container);
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .right {
   position: relative;
   width: 72vw;
-  margin: 16px 0;
+  margin: 0;
+  background-color: var(--container);
+  border-radius: 12px;
+  padding: 16px;
 }
 
 h1 {
@@ -176,8 +225,10 @@ h1 > img {
 }
 
 .library {
-  min-height: 80vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .footer {
@@ -293,21 +344,10 @@ h1 > img {
   padding: 2px;
   border-radius: 8px;
   animation: rotate 10s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s;
 }
 
 .card::before {
   filter: blur(0.5rem);
-  opacity: 0;
-}
-
-.card:hover::after,
-.card:hover::before {
-  opacity: 1;
-}
-
-.card:hover::before {
   opacity: 0.5;
 }
 
@@ -694,6 +734,11 @@ h1 > img {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+  .container {
+    padding: 0;
+    gap: 0;
+  }
+
   .left {
     position: fixed;
     left: -100%;
@@ -706,6 +751,7 @@ h1 > img {
     height: 100vh;
     top: 0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 0;
   }
 
   .left.active {
@@ -738,6 +784,7 @@ h1 > img {
   .right {
     width: 100vw;
     margin: 0;
+    border-radius: 0;
   }
 
   .playbar {
