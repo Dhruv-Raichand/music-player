@@ -22,8 +22,8 @@ async function getSongs(folder) {
     currFolder = folder;
     
     try {
-        // Fetch the songs list from songs.json
-        let response = await fetch(`/${folder}/songs.json`);
+        // Fetch the songs list from songinfo.json
+        let response = await fetch(`/${folder}/songinfo.json`);
         if (!response.ok) throw new Error(`Failed to load songs from ${folder}`);
         
         let songsData = await response.json();
