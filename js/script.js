@@ -22,43 +22,42 @@ async function getSongs(folder) {
     currFolder = folder;
     
     try {
-        // Fetch the songs list from a JSON file instead of directory listing
+        // Fetch the songs list from songs.json
         let response = await fetch(`/${folder}/songs.json`);
         if (!response.ok) throw new Error(`Failed to load songs from ${folder}`);
         
-        songs = await response.json();
+        let songsData = await response.json();
+        songs = songsData.map(song => song.file); // Extract just the filenames
         
         // Show all the songs in the playlist
         let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
         songUL.innerHTML = "";
         
-        for (const song of songs) {
-            const displayName = song.replaceAll("%20", " ").replaceAll(".mp3", " ");
-        
-            // Add static credit based on filename match
+        for (const songData of songsData) {
+            const displayName = `${songData.artist} - ${songData.name}`;
+            
+            // Build credit section with links
             let credit = "";
-            if (displayName.toLowerCase().includes("cradles")) {
-                credit = `Song: Sub Urban - Cradles [NCS Release]<br>
-                          Music provided by NoCopyrightSounds<br>
-                          <a class="links" href="http://ncs.io/Cradles" target="_blank">Download</a> |
-                          <a class="links" href="https://youtu.be/Hn4sfC2PbhI" target="_blank">Watch</a>`;
-            } else if (displayName.toLowerCase().includes("mortals")) {
-                credit = `Song: Warriyo - Mortals (feat. Laura Brehm) [NCS Release]<br>
-                          Music provided by NoCopyrightSounds<br>
-                          <a class="links" href="http://ncs.io/Mortals" target="_blank">Download</a> |
-                          <a class="links" href="https://youtu.be/yJg-Y5byMMw" target="_blank">Watch</a>`;
+            if (songData.credit) {
+                credit = `${songData.credit}<br>Music provided by NoCopyrightSounds<br>`;
+                if (songData.download) {
+                    credit += `<a class="links" href="${songData.download}" target="_blank">Download</a>`;
+                }
+                if (songData.watch) {
+                    credit += ` | <a class="links" href="${songData.watch}" target="_blank">Watch</a>`;
+                }
             }
         
             songUL.innerHTML += `<li class="li">
             <img class="songimg" width="44" src="${folder}/cover.jpg" alt="">
             <div class="info">
-                    <div>${displayName}</div>
-                </div>
-                <div class="playnow">
-                    <img class="invert" src="img/play.svg" alt="">
-                </div>
-            </li><div><div class="credit" style="font-size: 12px; margin-top: 5px;">${credit}</div></div>
-            `;
+                <div>${displayName}</div>
+            </div>
+            <div class="playnow">
+                <img class="invert" src="img/play.svg" alt="">
+            </div>
+            </li>
+            ${credit ? `<div class="credit" style="font-size: 12px; margin-top: 5px; margin-bottom: 10px;">${credit}</div>` : ''}`;
         }
         
         // Attach an event listener to each song
@@ -103,16 +102,24 @@ async function displayAlbums() {
     try {
         let cardContainer = document.querySelector(".cardContainer");
         
-        // Hardcoded album list (works without directory listing)
-        let albums = [
-            {folder: 'Angry_(mood)', title: 'Angry Mood', description: 'Calm your Anger'}, 
-            {folder: 'Bright_(mood)', title: 'Bright Songs', description: 'Bright Songs for you'},
-            {folder: 'Chill_(mood)', title: 'Just Chill', description: 'Yes, Just Chill'}, 
-            {folder: 'Funky_(mood)', title: 'Go Funky', description: 'Lets go Funky'}, 
-            {folder: 'Love_(mood)', title: 'I Love You', description: 'Love is in the air'}, 
-            {folder: 'ncs', title: 'NCS Songs', description: 'Songs for you'},
-            {folder: 'Uplifting_(mood)', title: 'Get up', description: 'You can do it!'}
-        ];
+        // Fetch albums.json that lists all available albums
+        let albumsResponse = await fetch('/albums.json');
+        let albums;
+        
+        if (albumsResponse.ok) {
+            albums = await albumsResponse.json();
+        } else {
+            // Fallback to hardcoded list if albums.json doesn't exist
+            albums = [
+                {folder: 'Angry_(mood)', title: 'Angry Mood', description: 'Calm your Anger'}, 
+                {folder: 'Bright_(mood)', title: 'Bright Songs', description: 'Bright Songs for you'},
+                {folder: 'Chill_(mood)', title: 'Just Chill', description: 'Yes, Just Chill'}, 
+                {folder: 'Funky_(mood)', title: 'Go Funky', description: 'Lets go Funky'}, 
+                {folder: 'Love_(mood)', title: 'I Love You', description: 'Love is in the air'}, 
+                {folder: 'ncs', title: 'NCS Songs', description: 'Songs for you'},
+                {folder: 'Uplifting_(mood)', title: 'Get up', description: 'You can do it!'}
+            ];
+        }
 
         // Clear and display albums
         cardContainer.innerHTML = '';
@@ -292,13 +299,11 @@ function toggleTheme() {
     document.body.classList.toggle('light-theme');
 
     if (document.body.classList.contains('light-theme')) {
-        lightIcon.style.display = 'none';
-        darkIcon.style.display = 'block';
-        sessionStorage.setItem('theme', 'light');
+        if (lightIcon) lightIcon.style.display = 'none';
+        if (darkIcon) darkIcon.style.display = 'block';
     } else {
-        lightIcon.style.display = 'block';
-        darkIcon.style.display = 'none';
-        sessionStorage.setItem('theme', 'dark');
+        if (lightIcon) lightIcon.style.display = 'block';
+        if (darkIcon) darkIcon.style.display = 'none';
     }
 }
 
@@ -306,19 +311,11 @@ if (themeToggleButton) {
     themeToggleButton.addEventListener('click', toggleTheme);
 }
 
-// Check sessionStorage for theme preference on page load
+// Check theme preference on page load
 window.addEventListener('load', () => {
-    const theme = sessionStorage.getItem('theme');
-    if (theme === 'light') {
-        document.body.classList.add('light-theme');
-        if (lightIcon && darkIcon) {
-            lightIcon.style.display = 'none';
-            darkIcon.style.display = 'block';
-        }
-    } else {
-        if (lightIcon && darkIcon) {
-            lightIcon.style.display = 'block';
-            darkIcon.style.display = 'none';
-        }
+    // Default to dark theme (no need for storage in this simple version)
+    if (lightIcon && darkIcon) {
+        lightIcon.style.display = 'block';
+        darkIcon.style.display = 'none';
     }
 });
