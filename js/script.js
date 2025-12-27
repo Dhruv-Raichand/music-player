@@ -22,8 +22,11 @@ async function getSongs(folder) {
     currFolder = folder;
     
     try {
-        // Fetch the songs list from songinfo.json
-        let response = await fetch(`/${folder}/songinfo.json`);
+        // Fetch the songs list - try both songs.json and songinfo.json
+        let response = await fetch(`/${folder}/songs.json`);
+        if (!response.ok) {
+            response = await fetch(`/${folder}/songinfo.json`);
+        }
         if (!response.ok) throw new Error(`Failed to load songs from ${folder}`);
         
         let songsData = await response.json();
@@ -77,8 +80,17 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
     currentSong.src = `/${currFolder}/` + track;
+    
+    // Add error handling for audio loading
+    currentSong.onerror = () => {
+        console.error(`Failed to load: ${currentSong.src}`);
+        alert(`Cannot load song: ${track}\nPlease check if the file exists on the server.`);
+    };
+    
     if (!pause) {
-        currentSong.play();
+        currentSong.play().catch(err => {
+            console.error("Playback error:", err);
+        });
         play.src = "img/pause.svg";
     }
     document.querySelector(".songinfo").innerHTML = decodeURI(track).replace('.mp3', " ");
