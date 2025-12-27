@@ -32,6 +32,24 @@ a {
 #theme-toggle {
   all: unset;
   cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+#theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+#theme-toggle svg {
+  width: 24px;
+  height: 24px;
 }
 
 #dark-icon {
@@ -62,6 +80,13 @@ a {
 .close {
   display: none;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.close img {
+  width: 100%;
+  height: 100%;
 }
 
 #searchInput {
@@ -115,6 +140,8 @@ h1 {
 
 h1 > img {
   width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .home ul li {
@@ -124,6 +151,12 @@ h1 > img {
   padding-top: 14px;
   font-weight: bold;
   align-items: center;
+}
+
+.home ul li img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 .heading {
@@ -138,6 +171,8 @@ h1 > img {
 
 .heading img {
   width: 30px;
+  height: 30px;
+  flex-shrink: 0;
 }
 
 .library {
@@ -197,6 +232,36 @@ h1 > img {
   max-height: 60vh;
   position: relative;
   z-index: 0;
+}
+
+.cardContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cardContainer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.light-theme .cardContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .cardContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.light-theme .cardContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .card {
@@ -383,22 +448,36 @@ h1 > img {
 }
 
 .songList::-webkit-scrollbar-track {
-  background: var(--container);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 
 .songList::-webkit-scrollbar-thumb {
-  background: var(--card);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
 }
 
 .songList::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.light-theme .songList::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .songList::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.light-theme .songList::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .hamburger {
   display: none;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 
 .hamburgerContainer {
@@ -406,6 +485,13 @@ h1 > img {
   justify-content: center;
   align-items: center;
   gap: 14px;
+}
+
+.hamburgerContainer svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .songList ul {
@@ -469,6 +555,11 @@ h1 > img {
   flex-shrink: 0;
 }
 
+.playnow img {
+  width: 20px;
+  height: 20px;
+}
+
 .playnow span {
   font-size: 15px;
   padding: 12px;
@@ -500,6 +591,8 @@ h1 > img {
   cursor: pointer;
   filter: var(--ulta);
   transition: transform 0.2s;
+  width: 35px;
+  height: 35px;
 }
 
 .songbuttons img:hover {
@@ -540,6 +633,8 @@ h1 > img {
 
 .volume img {
   transition: transform 0.2s;
+  width: 25px;
+  height: 25px;
 }
 
 .volume img:hover {
