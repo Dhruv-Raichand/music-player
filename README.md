@@ -267,8 +267,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📧 Contact
 
 **GitHub**: [@Dhruv-Raichand](https://github.com/Dhruv-Raichand)  
-**Email**: dhruvraichand70@example.com  
-**LinkedIn**: [Dhruv Raichand](https://www.linkedin.com/in/dhruv-raichand-560a67273)
+**Email**: dhruvraichand70@gmail.com  
+**LinkedIn**: [Dhruv Raichand](https://www.linkedin.com/in/dhruv-raichand)
 
 **Project Link**: [https://github.com/Dhruv-Raichand/music-player](https://github.com/Dhruv-Raichand/music-player)  
 **Live Demo**: [https://music-player-six-taupe.vercel.app](https://music-player-six-taupe.vercel.app)
